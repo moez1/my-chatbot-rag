@@ -1,0 +1,27 @@
+# Web framework
+fastapi
+uvicorn[standard]
+pydantic
+pydantic-settings
+python-multipart
+
+# Database
+sqlalchemy[asyncio]
+asyncpg
+psycopg2-binary
+alembic
+pgvector
+
+# LLM providers
+openai
+anthropic
+
+# Document parsing
+pypdf
+
+# Config
+python-dotenv
+pyyaml
+
+# HTTP client
+httpx

@@ -1,0 +1,39 @@
+app:
+  name: "personal-rag"
+  environment: "dev"   # dev | prod
+  log_level: "INFO"
+
+providers:
+  default_chat: "deepseek"
+  default_embeddings: "openai"
+  default_rerank: "none"
+
+  allow_list:
+    - "openai"
+    - "anthropic"
+    - "deepseek"
+
+routing:
+  sensitive_chat_provider: "openai"
+  non_sensitive_chat_provider: "deepseek"
+  fallback_chain:
+    - "openai"
+    - "anthropic"
+    - "deepseek"
+
+rag:
+  top_k: 8
+  max_context_chunks: 12
+  require_citations: true
+
+stores:
+  enable_split_stores: true
+  personal_store_name: "personal"
+  professional_store_name: "professional"
+
+database:
+  host: "localhost"
+  port: 5432
+  name: "rag"
+  user: "rag"
+
