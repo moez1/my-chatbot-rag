@@ -10,6 +10,7 @@ import os
 import openai
 
 from app.providers.base import ChatProvider, EmbeddingProvider
+from app.settings import get_settings
 
 RAG_SYSTEM_PROMPT = (
     "Tu es un assistant qui repond aux questions en te basant "
@@ -25,7 +26,7 @@ class OpenAIEmbeddingProvider(EmbeddingProvider):
 
     def __init__(self) -> None:
         self.client = openai.AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-        self._model = "text-embedding-3-small"
+        self._model = get_settings().providers.models.openai.embedding
 
     @property
     def provider_name(self) -> str:
@@ -57,15 +58,16 @@ class OpenAIChatProvider(ChatProvider):
 
     def __init__(self) -> None:
         self.client = openai.AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+        self._model = get_settings().providers.models.openai.chat
 
     @property
     def name(self) -> str:
         return "openai"
 
     async def generate(self, question: str, context: str) -> str:
-        """Generate an answer using GPT-4o-mini."""
+        """Generate an answer using the configured OpenAI chat model."""
         response = await self.client.chat.completions.create(
-            model="gpt-4o-mini",
+            model=self._model,
             messages=[
                 {"role": "system", "content": RAG_SYSTEM_PROMPT},
                 {"role": "user", "content": f"Contexte:\n{context}\n\nQuestion: {question}"},

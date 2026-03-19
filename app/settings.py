@@ -16,11 +16,31 @@ class AppConfig(BaseModel):
   log_level: str
 
 
+class OpenAIModels(BaseModel):
+  chat: str
+  embedding: str
+
+
+class DeepSeekModels(BaseModel):
+  chat: str
+
+
+class ClaudeModels(BaseModel):
+  chat: str
+
+
+class ModelsConfig(BaseModel):
+  openai: OpenAIModels
+  deepseek: DeepSeekModels
+  claude: ClaudeModels
+
+
 class ProvidersConfig(BaseModel):
   default_chat: str
   default_embeddings: str
   default_rerank: str
   allow_list: List[str]
+  models: ModelsConfig
 
 
 class RoutingConfig(BaseModel):

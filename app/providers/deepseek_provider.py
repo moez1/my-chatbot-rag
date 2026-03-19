@@ -13,6 +13,7 @@ import os
 import openai
 
 from app.providers.base import ChatProvider
+from app.settings import get_settings
 
 RAG_SYSTEM_PROMPT = (
     "Tu es un assistant qui repond aux questions en te basant "
@@ -31,15 +32,16 @@ class DeepSeekChatProvider(ChatProvider):
             api_key=os.getenv("DEEPSEEK_API_KEY"),
             base_url="https://api.deepseek.com",
         )
+        self._model = get_settings().providers.models.deepseek.chat
 
     @property
     def name(self) -> str:
         return "deepseek"
 
     async def generate(self, question: str, context: str) -> str:
-        """Generate an answer using DeepSeek."""
+        """Generate an answer using the configured DeepSeek chat model."""
         response = await self.client.chat.completions.create(
-            model="deepseek-chat",
+            model=self._model,
             messages=[
                 {"role": "system", "content": RAG_SYSTEM_PROMPT},
                 {"role": "user", "content": f"Contexte:\n{context}\n\nQuestion: {question}"},

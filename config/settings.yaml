@@ -13,6 +13,15 @@ providers:
     - "anthropic"
     - "deepseek"
 
+  models:
+    openai:
+      chat: "gpt-4o-mini"
+      embedding: "text-embedding-3-small"
+    deepseek:
+      chat: "deepseek-chat"
+    claude:
+      chat: "claude-sonnet-4-6"
+
 routing:
   sensitive_chat_provider: "openai"
   non_sensitive_chat_provider: "deepseek"

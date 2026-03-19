@@ -15,6 +15,7 @@ import os
 import anthropic
 
 from app.providers.base import ChatProvider
+from app.settings import get_settings
 
 RAG_SYSTEM_PROMPT = (
     "Tu es un assistant qui repond aux questions en te basant "
@@ -30,15 +31,16 @@ class ClaudeChatProvider(ChatProvider):
 
     def __init__(self) -> None:
         self.client = anthropic.AsyncAnthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+        self._model = get_settings().providers.models.claude.chat
 
     @property
     def name(self) -> str:
         return "claude"
 
     async def generate(self, question: str, context: str) -> str:
-        """Generate an answer using Claude."""
+        """Generate an answer using the configured Claude chat model."""
         response = await self.client.messages.create(
-            model="claude-sonnet-4-20250514",
+            model=self._model,
             max_tokens=2048,
             system=RAG_SYSTEM_PROMPT,
             messages=[
