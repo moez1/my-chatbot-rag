@@ -12,6 +12,7 @@ providers:
     - "openai"
     - "anthropic"
     - "deepseek"
+    - "qwen"
 
   models:
     openai:
@@ -21,14 +22,17 @@ providers:
       chat: "deepseek-chat"
     claude:
       chat: "claude-sonnet-4-6"
+    qwen:
+      chat: "qwen-plus"
 
 routing:
   sensitive_chat_provider: "openai"
   non_sensitive_chat_provider: "deepseek"
   fallback_chain:
+    - "deepseek"
+    - "qwen"
     - "openai"
     - "anthropic"
-    - "deepseek"
 
 rag:
   top_k: 8

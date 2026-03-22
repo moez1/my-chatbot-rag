@@ -17,6 +17,7 @@ from app.providers.base import ChatProvider, EmbeddingProvider
 from app.providers.claude_provider import ClaudeChatProvider
 from app.providers.deepseek_provider import DeepSeekChatProvider
 from app.providers.openai_provider import OpenAIChatProvider, OpenAIEmbeddingProvider
+from app.providers.qwen_provider import QwenChatProvider
 from app.settings import get_settings
 
 logger = logging.getLogger(__name__)
@@ -26,6 +27,7 @@ CHAT_PROVIDERS: dict[str, type[ChatProvider]] = {
     "deepseek": DeepSeekChatProvider,
     "openai": OpenAIChatProvider,
     "claude": ClaudeChatProvider,
+    "qwen": QwenChatProvider,
 }
 
 

@@ -29,10 +29,15 @@ class ClaudeModels(BaseModel):
   chat: str
 
 
+class QwenModels(BaseModel):
+  chat: str
+
+
 class ModelsConfig(BaseModel):
   openai: OpenAIModels
   deepseek: DeepSeekModels
   claude: ClaudeModels
+  qwen: QwenModels
 
 
 class ProvidersConfig(BaseModel):
